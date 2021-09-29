@@ -1,11 +1,25 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    password: root
-    url: jdbc:mysql://localhost:3306/
+  datasource: 
+    url: jdbc:mysql://localhost:3306/libreria_spring?useSSL=false&allowPublicKeyRetrieval=true
     username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver 
   jpa:
-    database: mysql
+    show-sql: true
     hibernate:
       ddl-auto: update
-    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect      
+  thymeleaf:
+    cache: false 
+server:
+  error:
+    whitelabel:
+      enabled: true
+  servlet:
+    session:
+      cookie:
+        http-only: true
+      tracking-modes:
+      - cookie
