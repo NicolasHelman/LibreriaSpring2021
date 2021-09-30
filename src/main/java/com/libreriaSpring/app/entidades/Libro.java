@@ -107,8 +107,6 @@ public class Libro {
 	public void setEditorial(Editorial editorial) {
 		this.editorial = editorial;
 	}
-    
-    
-    
+
     
 }
