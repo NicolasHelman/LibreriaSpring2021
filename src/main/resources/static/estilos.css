@@ -1,0 +1,32 @@
+body{
+    margin: 50px 0px 0px 0px;
+    background-image: url("https://www.wallpaperup.com/uploads/wallpapers/2016/03/21/914550/5848bd73be95f0534075ce6b9fa49869.jpg");
+}
+
+section div img{
+    width: 100%;
+}
+
+#tabla{
+	margin-top: 150px;
+}
+
+.titulo{
+	margin: auto;
+	border-radius: 50px;
+	width: 18%;
+}
+
+h1{
+	text-align: center;
+	margin-bottom: 50px;
+	color: white;
+	font-family: console;
+}
+
+.tablas{
+    margin: auto;
+    height: 300px;
+    width: 90%;
+    overflow-y: scroll; /* agregar scroll a la tabla */
+}
