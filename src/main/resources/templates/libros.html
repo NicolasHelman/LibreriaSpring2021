@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--==================== UNICONS ====================-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"/>
 
     <link rel="stylesheet" href="estilos.css">
 
@@ -21,7 +23,7 @@
         <!-- ============ NAV ============-->
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">📚</a>
+              <a class="navbar-brand" th:href="@{/}">📚</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -54,44 +56,56 @@
     <section id="tabla">
     	<div class="titulo bg-dark">
     		<h1>LIBROS</h1>
-    	</div>	
-        <div class="tablas mt-4"> 
-            <table class="table table-dark table-hover">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Isbn</th>
-                    <th>Título</th>
-                    <th>Año</th>
-                    <th>Ejemplares</th>
-                    <th>Ejemplares Prestados</th>
-                    <th>Ejemplares Restantes</th>
-                    <th>Alta</th>
-                    <th>Autor</th>
-                    <th>Editorial</th>
-                    <th>Modificar</th>
-                    <th>Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="libro:${libros}">
-                    <td th:text="${libro.isbn}"></td>
-                    <td th:text="${libro.titulo}"></td>
-                    <td th:text="${libro.anio}"></td>
-                    <td th:text="${libro.ejemplares}"></td>
-                    <td th:text="${libro.ejemplaresPrestados}"></td>
-                    <td th:text="${libro.ejemplaresRestantes}"></td>
-                    <td th:text="${libro.alta}"></td>
-                    <td th:text="${libro.autor.getNombre()}"></td>
-                    <td th:text="${libro.editorial.getNombre()}"></td>                
-                    <td>
-                      <a class="btn btn-warning mb-2">〽</a>
-                    </td>
-                    <td>
-                      <a class="btn btn-danger mb-2">❌</a>
-                    </td>                 
-                  </tr>
-                </tbody>
-              </table>
+    	</div>
+    	<div class="boton-tabla"> 	
+	    	<a th:href="@{/agregarLibro}" class="btn btn-primary btn_agregar">Agregar</a>
+	        <div class="tablas mt-4"> 
+	            <table class="table table-dark table-hover">
+	                <thead class="thead-dark">
+	                  <tr>
+	                    <th>Isbn</th>
+	                    <th>Título</th>
+	                    <th>Año</th>
+	                    <th>Ejemplares</th>
+	                    <th>Ejemplares Prestados</th>
+	                    <th>Ejemplares Restantes</th>
+	                    <th>Autor</th>
+	                    <th>Editorial</th>
+	                    <th>¿Está Activo?</th>
+	                    <th>Modificar</th>
+	                    <th>Alta/Baja</th>
+	                    <th>Eliminar</th>
+	                  </tr>
+	                </thead>
+	                <tbody>
+	                  <tr th:each="libro:${libros}">
+	                    <td th:text="${libro.isbn}"></td>
+	                    <td th:text="${libro.titulo}"></td>
+	                    <td th:text="${libro.anio}"></td>
+	                    <td th:text="${libro.ejemplares}"></td>
+	                    <td th:text="${libro.ejemplaresPrestados}"></td>
+	                    <td th:text="${libro.ejemplaresRestantes}"></td>
+	                    <td th:text="${libro.autor.getNombre()}"></td>
+	                    <td th:text="${libro.editorial.getNombre()}"></td>     
+	                    <td>
+							<i th:if="${libro.alta}" class="fa fa-circle text-success"></i>
+							<i th:unless="${libro.alta}" class="fa fa-circle text-danger"></i>
+						</td>           
+	                    <td>
+	                      <a th:href="@{/modificarLibro}+${libro.id}"><i class="fa fa-cogs text-warning"></i></a>
+	                    </td>
+	                    <td>
+	                      <a th:href="@{/altaLibro}+${libro.id}"><i class="fa fa-arrow-up text-success"></i></a>
+	                      /
+	                      <a th:href="@{/bajaLibro}+${libro.id}"><i class="fa fa-ban text-danger"></i></a>
+	                    </td>  
+	                    <td>
+	                      <a th:href="@{/eliminarLibroPorId}+${libro.id}"><i class="fa fa-trash text-danger"></i></a>
+	                    </td>               
+	                  </tr>
+	               </tbody>
+	            </table>
+	        </div>	   
         </div>
     </section>
 

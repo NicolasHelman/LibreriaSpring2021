@@ -2,10 +2,16 @@ package com.libreriaSpring.app.servicios;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import com.libreriaSpring.app.entidades.Autor;
+import com.libreriaSpring.app.entidades.Editorial;
 import com.libreriaSpring.app.entidades.Libro;
+import com.libreriaSpring.app.errores.ErrorServicio;
+import com.libreriaSpring.app.repositorios.AutorRepositorio;
+import com.libreriaSpring.app.repositorios.EditorialRepositorio;
 import com.libreriaSpring.app.repositorios.LibroRepositorio;
 
 @Service
@@ -13,22 +19,152 @@ public class LibroServicio {
 
 	// Para implementar los metodos necesitamos la interfaz LibroRepositorio
 	@Autowired
-	private LibroRepositorio data;
+	private LibroRepositorio dataLibro;
 	
-	public Libro crearLibro(Libro libro) {
-		return data.save(libro);
+	@Autowired
+	private AutorRepositorio dataAutor;
+	
+	@Autowired
+	private EditorialRepositorio dataEditorial;
+	
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void crearLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, String idAutor, String idEditorial) throws ErrorServicio{
+		
+		@SuppressWarnings("deprecation")
+		Autor a = dataAutor.getOne(idAutor);
+		@SuppressWarnings("deprecation")
+		Editorial e = dataEditorial.getOne(idEditorial);
+		
+		validarLibro(isbn, titulo, anio, ejemplares, a, e);
+				
+		Libro l = new Libro();
+		l.setIsbn(isbn);
+		l.setTitulo(titulo);
+		l.setAnio(anio);
+		l.setEjemplares(ejemplares);
+		l.setEjemplaresPrestados(0);
+        l.setEjemplaresRestantes(l.getEjemplares());
+		l.setAlta(true);
+		
+		l.setAutor(a);
+		l.setEditorial(e);
+		
+		dataLibro.save(l);
+		
 	}
 	
-	public void eliminarLibro(Libro libro) {
-		data.delete(libro);
-	}
-	
-	public List<Libro> listarLibros() {	
-		return data.findAll();
-	}
-
-	public Optional<Libro> buscarLibroPorId(String id) {
-		return data.findById(id);
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void modificarLibro(String id, Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, String idAutor, String idEditorial) throws ErrorServicio{
+		
+		@SuppressWarnings("deprecation")
+		Autor a = dataAutor.getOne(idAutor);
+		@SuppressWarnings("deprecation")
+		Editorial e = dataEditorial.getOne(idEditorial);
+		
+		validarLibro(isbn, titulo, anio, ejemplares, a, e);
+		
+		Optional<Libro> respuesta = dataLibro.findById(id);
+		
+		if (respuesta.isPresent()) {
+			Libro l = respuesta.get();
+			l.setIsbn(isbn);
+			l.setTitulo(titulo);
+			l.setAnio(anio);
+			l.setEjemplares(ejemplares);
+			l.setEjemplaresPrestados(ejemplaresPrestados);
+	        l.setEjemplaresRestantes(l.getEjemplares() - l.getEjemplaresPrestados());
+			
+			l.setAutor(a);
+			l.setEditorial(e);
+			
+			dataLibro.save(l);
+		}else {
+			throw new ErrorServicio("No se encontró el libro solicitado");
+		}
 	}	
 	
+	@Transactional(readOnly = true)
+	public List<Libro> listarLibros() {	
+		return dataLibro.findAll();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Libro> listarLibrosActivos() {
+		return dataLibro.buscarLibrosActivos();
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Optional<Libro> buscarLibroPorId(String id) {
+		return dataLibro.findById(id);
+	}	
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Libro libroAlta(String id) throws ErrorServicio{
+
+		Optional<Libro> libros = dataLibro.findById(id);	
+		
+		if (libros.isPresent()) {
+			Libro l = libros.get();
+
+			l.setAlta(true);
+			
+			return dataLibro.save(l);
+		}else {
+			throw new ErrorServicio("No se encontro el libro solicitado");
+		}
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Libro libroBaja(String id) throws ErrorServicio{
+
+		Optional<Libro> libros = dataLibro.findById(id);	
+		
+		if (libros.isPresent()) {
+			Libro l = libros.get();
+
+			l.setAlta(false);
+			
+			return dataLibro.save(l);
+		}else {
+			throw new ErrorServicio("No se encontro el libro solicitado");
+		}
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void eliminarLibro(Libro libro) {
+		dataLibro.delete(libro);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void eliminarLibroPorId(String id) throws ErrorServicio {
+		dataLibro.deleteById(id);
+	}
+	
+	public void validarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Autor autor, Editorial editorial) throws ErrorServicio{
+		if (isbn == null) {
+			throw new ErrorServicio("*El isbn está incompleto");
+		}			
+		if (isbn < 10 && isbn.longValue() > 13) {
+			throw new ErrorServicio("*El Isbn debe ser de 10-13 dígitos");
+		}		
+		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
+			throw new ErrorServicio("*El título está incompleto");
+		}
+		if (anio == null) {
+			throw new ErrorServicio("*El año está incompleto");
+		}
+		if (anio < 1900 || anio > 2021) {
+			throw new ErrorServicio("*El año ingresado es invalido");
+		}
+		if (ejemplares == null || ejemplares <= 0) {
+			throw new ErrorServicio("*Los ejemplares están incompletos");
+		}
+		if(autor == null) {
+			throw new ErrorServicio("*No se encontró el autor solicitado");
+		}	
+		if(editorial == null) {
+			throw new ErrorServicio("*No se encontró la editorial solicitada");
+		}	
+	}	
 }

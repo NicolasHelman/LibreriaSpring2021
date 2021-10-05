@@ -10,7 +10,7 @@ public class Controlador {
 	
 	@GetMapping({"/libreria","/"})
 	public String index() {			
-		return "index";
+		return "index.html";
 	}
 	
 }

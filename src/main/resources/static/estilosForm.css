@@ -1,0 +1,69 @@
+body{
+    margin: 50px 0px 0px 0px;
+    background-image: url("https://www.wallpaperup.com/uploads/wallpapers/2016/03/21/914550/5848bd73be95f0534075ce6b9fa49869.jpg");
+}
+
+#form{
+	margin-top: 100px;
+}
+
+.form{
+    background-color: rgb(0, 0, 0);
+    margin: auto;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 16px;
+    padding: 50px 25px;
+    opacity: 0.8;
+}
+
+.form__container{
+    width: 100%;
+    display: grid;
+    gap: 16px;
+    grid-auto-columns: 100%;
+}
+
+.form__title{
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.form__input{
+    font-size: 16px;
+    padding: 12px 16px;
+    outline: none;
+    border: none;
+    border: 1px solid #0084ff;
+    border-radius: 4px;
+}
+
+.form__button{
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #089FE0;
+    color: #FFF;
+    border: none;
+    padding: 10px 0;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.form__button:hover{
+    background-color: #7ebeda;
+    color: #FFF;
+}
+
+.form p{
+	color: red;
+}
+
+@media (max-width: 450px){
+    .form{
+        padding: 50px 16px;
+    }
+}
