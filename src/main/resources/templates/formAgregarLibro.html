@@ -10,7 +10,7 @@
     <!--==================== UNICONS ====================-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <link rel="stylesheet" href="estilosForm.css">
+    <link rel="stylesheet" href="/estilosForm.css">
 
     <title>Agregar Libro</title>
  </head>
@@ -52,8 +52,8 @@
     <!-- ============ SECTION ============-->
     <section id="form">
         <!-- ============ FORMULARIO ============-->
-        <form th:action="@{/agregarLibro}" th:object=${libro} method="POST" class="form">
-            <div class="form__container">
+        <form th:action="@{/libros/agregarLibro}" th:object=${libro} method="POST" class="form">
+            <div class="form__container">       	
                 <h2 class="form__title">Datos del Libro</h2>
                 <input name="isbn" th:value="${isbn}" type="number" class="form__input" placeholder="Isbn" required>
                 <input name="titulo" th:value="${titulo}" type="text" class="form__input" placeholder="Título" required>
@@ -71,6 +71,8 @@
                 <p th:if="${Error != null}" th:text="${Error}"></p>
 
                 <input type="submit" value="Agregar" class="form__button">
+                
+                <a th:href="@{/libros}" class="btn btn-secondary btn_volver">Volver</a>
             </div>
         </form>
     </section>

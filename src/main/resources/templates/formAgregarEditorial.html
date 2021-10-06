@@ -10,7 +10,7 @@
     <!--==================== UNICONS ====================-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <link rel="stylesheet" href="estilosForm.css">
+    <link rel="stylesheet" href="/estilosForm.css">
 
     <title>Agregar Editorial</title>
  </head>
@@ -52,7 +52,7 @@
     <!-- ============ SECTION ============-->
     <section id="form">
         <!-- ============ FORMULARIO ============-->
-        <form th:action="@{/agregarEditorial}" th:object=${editorial} method="POST" class="form">
+        <form th:action="@{/editoriales/agregarEditorial}" th:object=${editorial} method="POST" class="form">
             <div class="form__container">
                 <h2 class="form__title">Datos de la Editorial</h2>
                 <input name="nombre" th:value="${nombre}" type="text" class="form__input" placeholder="Nombre" required>
@@ -60,6 +60,8 @@
                 <p th:if="${Error != null}" th:text="${Error}"></p>
 
                 <input type="submit" value="Agregar" class="form__button">
+                
+                <a th:href="@{/editoriales}" class="btn btn-secondary btn_volver">Volver</a>
             </div>
         </form>
     </section>

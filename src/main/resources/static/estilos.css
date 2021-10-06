@@ -30,8 +30,9 @@ section div img{
 }
 
 .tablas{   
-    height: 350px;   
-    overflow-y: scroll; /* agregar scroll a la tabla */
+    height: 300px;   
+    overflow-y: auto;
+    overflow-x: hidden;
     opacity: 0.9;
 }
 
@@ -41,6 +42,18 @@ section div img{
 
 .btn_agregar{
     margin: 30px 0 10px 0px; 
+}
+
+thead tr th{ 
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+thead {
+    height: 40px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 th, td{

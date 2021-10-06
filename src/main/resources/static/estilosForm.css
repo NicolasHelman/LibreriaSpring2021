@@ -33,7 +33,7 @@ body{
 
 .form__input{
     font-size: 16px;
-    padding: 12px 16px;
+    padding: 10px 16px;
     outline: none;
     border: none;
     border: 1px solid #0084ff;
@@ -60,6 +60,14 @@ body{
 
 .form p{
 	color: red;
+}
+
+.btn_volver{
+	height: 45px;
+	font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 0;
 }
 
 @media (max-width: 450px){

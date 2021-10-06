@@ -16,19 +16,19 @@ import com.libreriaSpring.app.errores.ErrorServicio;
 import com.libreriaSpring.app.servicios.AutorServicio;
 
 @Controller
-@RequestMapping
+@RequestMapping("/autores")
 public class AutorControlador {
 	
 	@Autowired
 	private AutorServicio servicioAutor;
 		
-	@GetMapping("/autores")
+	@GetMapping()
 	public String listarAutores(ModelMap modelo) {
 		List<Autor> autores = servicioAutor.listarAutores();
 		// modelo.addAttribute vamos a enviar toda la lista a la tabla
 		modelo.addAttribute("autores", autores);
 		
-		return "autores.html";
+		return "autores";
 	}
 	
 	@GetMapping("/agregarAutor")
@@ -36,7 +36,7 @@ public class AutorControlador {
 		List<Autor> autores = servicioAutor.listarAutores();
 		modelo.addAttribute("autores", autores);
 		
-		return "formAgregarAutor.html";
+		return "formAgregarAutor";
 	}
 	
 	@PostMapping("/agregarAutor") 
@@ -52,18 +52,18 @@ public class AutorControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 			
-			return "formAgregarAutor.html";
+			return "formAgregarAutor";
 		}
 	}
 	
-	@GetMapping("/modificarAutor{id}")
+	@GetMapping("/modificarAutor/{id}")
 	public String modificarAutor(ModelMap modelo, @PathVariable String id) {
 		
 		Optional<Autor> autores = servicioAutor.buscarAutorPorId(id);			
 
 		modelo.addAttribute("nombre", autores.get().getNombre());
 				
-		return "formModificarAutor.html";
+		return "formModificarAutor";
 	}
 	
 	@PostMapping("/modificarAutor") 
@@ -79,11 +79,11 @@ public class AutorControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 					
-			return "formAgregarAutor.html";
+			return "formAgregarAutor";
 		}
 	}
 	
-	@GetMapping("/altaAutor{id}")
+	@GetMapping("/altaAutor/{id}")
 	public String altaAutor(@PathVariable String id) {
 		
 		try {
@@ -97,7 +97,7 @@ public class AutorControlador {
 		}
 	}
 	
-	@GetMapping("/bajaAutor{id}")
+	@GetMapping("/bajaAutor/{id}")
 	public String bajaAutor(@PathVariable String id) {
 				
 		try {
@@ -111,7 +111,7 @@ public class AutorControlador {
 		}		
 	}
 	
-	@GetMapping("/eliminarAutorPorId{id}")
+	@GetMapping("/eliminarAutorPorId/{id}")
 	public String eliminarAutorPorId(@PathVariable String id) {
 				
 		try {

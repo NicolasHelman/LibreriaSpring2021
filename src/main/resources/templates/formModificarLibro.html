@@ -10,7 +10,7 @@
     <!--==================== UNICONS ====================-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <link rel="stylesheet" href="estilosForm.css">
+    <link rel="stylesheet" href="/estilosForm.css">
 
     <title>Modificar Libro</title>
  </head>
@@ -52,7 +52,7 @@
     <!-- ============ SECTION ============-->
     <section id="form">
         <!-- ============ FORMULARIO ============-->
-        <form th:action="@{/modificarLibro}" th:object=${libro} method="POST" class="form">
+        <form th:action="@{/libros/modificarLibro}" th:object=${libro} method="POST" class="form">
             <div class="form__container">
                 <h2 class="form__title">Modificar Libro</h2>
                 <input name="id" th:value="${id}" type="hidden" class="form__input" placeholder="Id">
@@ -73,6 +73,8 @@
                 <p th:if="${Error != null}" th:text="${Error}"></p>
 
                 <input type="submit" value="Modificar" class="form__button">
+                
+                <a th:href="@{/libros}" class="btn btn-secondary btn_volver">Volver</a>
             </div>
         </form>
     </section>

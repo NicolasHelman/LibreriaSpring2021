@@ -11,7 +11,7 @@
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"/>
 
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="/estilos.css">
 
     <title>Libros</title>
   </head>
@@ -58,7 +58,7 @@
     		<h1>LIBROS</h1>
     	</div>
     	<div class="boton-tabla"> 	
-	    	<a th:href="@{/agregarLibro}" class="btn btn-primary btn_agregar">Agregar</a>
+	    	<a th:href="@{/libros/agregarLibro}" class="btn btn-primary btn_agregar">Agregar</a>
 	        <div class="tablas mt-4"> 
 	            <table class="table table-dark table-hover">
 	                <thead class="thead-dark">
@@ -92,15 +92,15 @@
 							<i th:unless="${libro.alta}" class="fa fa-circle text-danger"></i>
 						</td>           
 	                    <td>
-	                      <a th:href="@{/modificarLibro}+${libro.id}"><i class="fa fa-cogs text-warning"></i></a>
+	                      <a th:href="@{/libros/modificarLibro/__${libro.id}__}"><i class="fa fa-cogs text-warning"></i></a>
 	                    </td>
 	                    <td>
-	                      <a th:href="@{/altaLibro}+${libro.id}"><i class="fa fa-arrow-up text-success"></i></a>
+	                      <a th:href="@{/libros/altaLibro/__${libro.id}__}"><i class="fa fa-arrow-up text-success"></i></a>
 	                      /
-	                      <a th:href="@{/bajaLibro}+${libro.id}"><i class="fa fa-ban text-danger"></i></a>
+	                      <a th:href="@{/libros/bajaLibro/__${libro.id}__}"><i class="fa fa-ban text-danger"></i></a>
 	                    </td>  
 	                    <td>
-	                      <a th:href="@{/eliminarLibroPorId}+${libro.id}"><i class="fa fa-trash text-danger"></i></a>
+	                      <a th:href="@{/libros/eliminarLibroPorId/__${libro.id}__}"><i class="fa fa-trash text-danger"></i></a>
 	                    </td>               
 	                  </tr>
 	               </tbody>

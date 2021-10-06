@@ -9,7 +9,7 @@
     <!--==================== UNICONS ====================-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <link rel="stylesheet" href="estilosForm.css">
+    <link rel="stylesheet" href="/estilosForm.css">
 
     <title>Agregar Autor</title>
   </head>
@@ -51,7 +51,7 @@
      <!-- ============ SECTION ============-->
      <section id="form">
         <!-- ============ FORMULARIO ============-->
-        <form th:action="@{/agregarAutor}" th:object=${autor} method="POST" class="form">
+        <form th:action="@{/autores/agregarAutor}" th:object=${autor} method="POST" class="form">
             <div class="form__container">
                 <h2 class="form__title">Datos del Autor</h2>
                 <input name="nombre" th:value="${nombre}" type="text" class="form__input" placeholder="Nombre y Apellido" required>
@@ -59,6 +59,8 @@
                 <p th:if="${Error != null}" th:text="${Error}"></p>
 
                 <input type="submit" value="Agregar" class="form__button">
+                
+                <a th:href="@{/autores}" class="btn btn-secondary btn_volver">Volver</a>
             </div>
         </form>
      </section>

@@ -20,7 +20,7 @@ import com.libreriaSpring.app.servicios.EditorialServicio;
 import com.libreriaSpring.app.servicios.LibroServicio;
 
 @Controller
-@RequestMapping
+@RequestMapping("/libros")
 public class LibroControlador {
 	
 	@Autowired
@@ -32,14 +32,15 @@ public class LibroControlador {
 	@Autowired
 	private EditorialServicio servicioEditorial;
 		
-	@GetMapping("/libros")
+	@GetMapping()
 	public String listarLibros(ModelMap modelo) {
 		// modelo -> sirven para que nosotros insertaramos en ese modelo 
 		// toda la informacion que vamos a mostrar en pantalla o podemos utilizar
 		List<Libro> libros = servicioLibro.listarLibros();
 		// modelo.addAttribute vamos a enviar toda la lista a la tabla
 		modelo.addAttribute("libros", libros);
-		return "libros.html";
+		
+		return "libros";
 	}
 	
 	@GetMapping("/agregarLibro")
@@ -49,7 +50,7 @@ public class LibroControlador {
 		modelo.addAttribute("autores",autores);
 		modelo.addAttribute("editoriales",editoriales);
 		
-		return "formAgregarLibro.html";
+		return "formAgregarLibro";
 	}
 	
 	@PostMapping("/agregarLibro") 
@@ -72,12 +73,12 @@ public class LibroControlador {
 			modelo.put("autores",autores);
 			modelo.put("editoriales",editoriales);
 			
-			return "formAgregarLibro.html";
+			return "formAgregarLibro";
 		}
 			
 	}
 	
-	@GetMapping("/modificarLibro{id}")
+	@GetMapping("/modificarLibro/{id}")
 	public String modificarLibro(ModelMap modelo, @PathVariable String id) {
 		
 		Optional<Libro> libros = servicioLibro.buscarLibroPorId(id);		
@@ -92,7 +93,7 @@ public class LibroControlador {
 		modelo.addAttribute("autores", autores);
 		modelo.addAttribute("editoriales", editoriales);
 				
-		return "formModificarLibro.html";
+		return "formModificarLibro";
 	}
 	
 	@PostMapping("/modificarLibro") 
@@ -117,11 +118,11 @@ public class LibroControlador {
 			modelo.put("autores",autores);
 			modelo.put("editoriales",editoriales);
 			
-			return "formAgregarLibro.html";
+			return "formAgregarLibro";
 		}
 	}
 	
-	@GetMapping("/altaLibro{id}")
+	@GetMapping("/altaLibro/{id}")
 	public String altaLibro(@PathVariable String id) {
 		
 		try {
@@ -135,7 +136,7 @@ public class LibroControlador {
 		}
 	}
 	
-	@GetMapping("/bajaLibro{id}")
+	@GetMapping("/bajaLibro/{id}")
 	public String bajaLibro(@PathVariable String id) {
 				
 		try {
@@ -150,7 +151,7 @@ public class LibroControlador {
 				
 	}
 	
-	@GetMapping("/eliminarLibroPorId{id}")
+	@GetMapping("/eliminarLibroPorId/{id}")
 	public String eliminarLibroPorId(@PathVariable String id) {
 				
 		try {

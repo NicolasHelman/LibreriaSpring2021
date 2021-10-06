@@ -16,19 +16,19 @@ import com.libreriaSpring.app.errores.ErrorServicio;
 import com.libreriaSpring.app.servicios.EditorialServicio;
 
 @Controller
-@RequestMapping
+@RequestMapping("/editoriales")
 public class EditorialControlador {
 	
 	@Autowired
 	private EditorialServicio servicioEditorial;
 		
-	@GetMapping("/editoriales")
+	@GetMapping()
 	public String listarEditoriales(ModelMap modelo) {
 		List<Editorial> editoriales = servicioEditorial.listarEditoriales();
 		// modelo.addAttribute vamos a enviar toda la lista a la tabla
 		modelo.addAttribute("editoriales", editoriales);
 		
-		return "editoriales.html";
+		return "editoriales";
 	}
 	
 	@GetMapping("/agregarEditorial")
@@ -36,7 +36,7 @@ public class EditorialControlador {
 		List<Editorial> editoriales = servicioEditorial.listarEditoriales();
 		modelo.addAttribute("editoriales", editoriales);
 		
-		return "formAgregarEditorial.html";
+		return "formAgregarEditorial";
 	}
 	
 	@PostMapping("/agregarEditorial") 
@@ -52,18 +52,18 @@ public class EditorialControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 			
-			return "formAgregarEditorial.html";
+			return "formAgregarEditorial";
 		}
 	}
 	
-	@GetMapping("/modificarEditorial{id}")
+	@GetMapping("/modificarEditorial/{id}")
 	public String modificarEditorial(ModelMap modelo, @PathVariable String id) {
 		
 		Optional<Editorial> editoriales = servicioEditorial.buscarEditorialPorId(id);			
 
 		modelo.addAttribute("nombre", editoriales.get().getNombre());
 				
-		return "formModificarEditorial.html";
+		return "formModificarEditorial";
 	}
 	
 	@PostMapping("/modificarEditorial") 
@@ -79,11 +79,11 @@ public class EditorialControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 					
-			return "formAgregarEditorial.html";
+			return "formAgregarEditorial";
 		}	
 	}
 	
-	@GetMapping("/altaEditorial{id}")
+	@GetMapping("/altaEditorial/{id}")
 	public String altaEditorial(@PathVariable String id) {
 		
 		try {
@@ -97,7 +97,7 @@ public class EditorialControlador {
 		}
 	}
 	
-	@GetMapping("/bajaEditorial{id}")
+	@GetMapping("/bajaEditorial/{id}")
 	public String bajaEditorial(@PathVariable String id) {
 				
 		try {
@@ -113,7 +113,7 @@ public class EditorialControlador {
 				
 	}
 	
-	@GetMapping("/eliminarEditorialPorId{id}")
+	@GetMapping("/eliminarEditorialPorId/{id}")
 	public String eliminarEditorialPorId(@PathVariable String id) {
 				
 		try {
