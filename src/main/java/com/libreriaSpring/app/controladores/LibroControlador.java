@@ -43,6 +43,24 @@ public class LibroControlador {
 		return "libros";
 	}
 	
+	@PostMapping("/buscarLibro")
+	public String listarLibrosPorTitulo(ModelMap modelo, @RequestParam String titulo) throws ErrorServicio{
+		
+		try {
+			Libro libros =  servicioLibro.buscarLibroPorTitulo(titulo);
+			modelo.addAttribute("libros", libros);
+			
+			return "libros";
+			
+		} catch (Exception e) {
+			modelo.put("ErrorBuscar", e.getMessage());
+			// devolvemos los valores ingresados al formulario
+		    modelo.put("titulo", titulo);
+			
+			return "libros";
+		}		
+	}	
+	
 	@GetMapping("/agregarLibro")
 	public String agregarLibro(ModelMap modelo) {
 		List<Autor> autores = servicioAutor.listarAutores();

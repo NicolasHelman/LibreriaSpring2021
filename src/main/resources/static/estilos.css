@@ -44,6 +44,33 @@ section div img{
     margin: 30px 0 10px 0px; 
 }
 
+.buscador{
+	width: 15%;
+	height: 45px;
+	margin: 12px 0 0px 0px;
+	border-radius: 5px;
+	border-color: white;
+	color: white;
+}
+
+.btn_buscar{
+	margin: 0px 0 0px 0px;
+	border-color: white;
+	height: 40px;
+	width: 42px;
+}
+
+.btn_buscar:hover{
+	border-color: black;
+}
+
+.btn_actualizar{
+	margin: 0px 0 5px 20px;
+	border-color: white;
+	height: 40px;
+	width: 42px;
+}
+
 thead tr th{ 
     position: sticky;
     top: 0;
@@ -58,4 +85,8 @@ thead {
 
 th, td{
 	text-align: center;
+}
+
+p{
+	color: red;
 }

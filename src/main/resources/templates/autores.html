@@ -57,8 +57,18 @@
       <div class="titulo bg-dark">
     	 <h1>AUTORES</h1>
       </div>
-      <div class="boton-tabla"> 
-      	  <a th:href="@{/autores/agregarAutor}" class="btn btn-primary btn_agregar">Agregar</a>
+      <div class="boton-tabla">   	  
+      	  <a th:href="@{/autores/agregarAutor}" class="btn btn-primary btn_agregar">Agregar</a> 	
+      	    	
+      	  <div>
+      	  	<form th:action="@{/autores/buscarAutor}" th:object=${autor} method="POST" class="form">
+      	  		<input class="buscador bg-dark" th:value="${nombre}" type="text" name="nombre" placeholder=" Nombre del Autor">
+      	  		<input type="submit" value="🔍" class="form__button bg-dark btn_buscar">
+      	  		<a th:href="@{/autores}" class="btn btn-dark btn_actualizar"><i class="uil uil-sync"></i></a>
+      	  	</form>
+      	  	<p th:if="${ErrorBuscar != null}" th:text="${ErrorBuscar}"></p>
+      	  </div> 
+ 
 	      <div class="tablas mt-4">
 	      		<table class="table table-dark table-hover"> 
 	              <thead class="thead-dark">

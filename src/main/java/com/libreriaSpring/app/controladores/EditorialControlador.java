@@ -31,6 +31,24 @@ public class EditorialControlador {
 		return "editoriales";
 	}
 	
+	@PostMapping("/buscarEditorial")
+	public String listarEditorialesPorNombre(ModelMap modelo, @RequestParam String nombre) throws ErrorServicio{
+		
+		try {
+			Editorial editoriales =  servicioEditorial.buscarEditorialPorNombre(nombre);
+			modelo.addAttribute("editoriales", editoriales);
+			
+			return "editoriales";
+			
+		} catch (Exception e) {
+			modelo.put("ErrorBuscar", e.getMessage());
+			// devolvemos los valores ingresados al formulario
+		    modelo.put("nombre", nombre);
+			
+			return "editoriales";
+		}		
+	}	
+	
 	@GetMapping("/agregarEditorial")
 	public String agregarEditorial(ModelMap modelo) {
 		List<Editorial> editoriales = servicioEditorial.listarEditoriales();

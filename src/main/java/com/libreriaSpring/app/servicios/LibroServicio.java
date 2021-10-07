@@ -93,6 +93,18 @@ public class LibroServicio {
 	public List<Libro> listarLibrosActivos() {
 		return dataLibro.buscarLibrosActivos();
 	}
+	
+	@Transactional(readOnly = true)
+	public Libro buscarLibroPorTitulo(String titulo) throws ErrorServicio {
+		
+		Optional<Libro> libro = dataLibro.buscarLibroPorTitulo(titulo);
+		
+		if(!libro.isEmpty()) {
+			return libro.get();
+		}else {
+			throw new ErrorServicio("*No se encontró el título del libro");
+		}	
+	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Optional<Libro> buscarLibroPorId(String id) {

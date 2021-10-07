@@ -31,6 +31,24 @@ public class AutorControlador {
 		return "autores";
 	}
 	
+	@PostMapping("/buscarAutor")
+	public String listarAutoresPorNombre(ModelMap modelo, @RequestParam String nombre) throws ErrorServicio{
+		
+		try {
+			Autor autores =  servicioAutor.buscarAutorPorNombre(nombre);
+			modelo.addAttribute("autores", autores);
+			
+			return "autores";
+			
+		} catch (Exception e) {
+			modelo.put("ErrorBuscar", e.getMessage());
+			// devolvemos los valores ingresados al formulario
+		    modelo.put("nombre", nombre);
+			
+			return "autores";
+		}		
+	}	
+	
 	@GetMapping("/agregarAutor")
 	public String agregarAutor(ModelMap modelo) {
 		List<Autor> autores = servicioAutor.listarAutores();
@@ -124,5 +142,7 @@ public class AutorControlador {
 			return "redirect:/autores";
 		}
 	}
+	
+	
 	
 }

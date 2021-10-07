@@ -59,6 +59,16 @@
     	</div>
     	<div class="boton-tabla"> 	
 	    	<a th:href="@{/libros/agregarLibro}" class="btn btn-primary btn_agregar">Agregar</a>
+	    	
+	    	<div>
+	      	  	<form th:action="@{/libros/buscarLibro}" th:object=${libro} method="POST" class="form">
+	      	  		<input class="buscador bg-dark" th:value="${titulo}" type="text" name="titulo" placeholder=" Título del Libro">
+	      	  		<input type="submit" value="🔍" class="form__button bg-dark btn_buscar">
+	      	  		<a th:href="@{/libros}" class="btn btn-dark btn_actualizar"><i class="uil uil-sync"></i></a>
+	      	  	</form>
+	      	  	<p th:if="${ErrorBuscar != null}" th:text="${ErrorBuscar}"></p>
+      	    </div> 
+      	    
 	        <div class="tablas mt-4"> 
 	            <table class="table table-dark table-hover">
 	                <thead class="thead-dark">

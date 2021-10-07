@@ -43,13 +43,12 @@ public class AutorServicio {
 				
 				dataAutor.save(a);
 			}else {
-				throw new ErrorServicio("No puede realizar la modificacion");
+				throw new ErrorServicio("*No puede realizar la modificacion");
 			}		
 		}else {
-			throw new ErrorServicio("No se encontro el autor solicitado");
+			throw new ErrorServicio("*No se encontro el autor solicitado");
 		}
 	}
-	
 	
 	@Transactional(readOnly = true)
 	public List<Autor> listarAutores() {	
@@ -59,6 +58,18 @@ public class AutorServicio {
 	@Transactional(readOnly = true)
 	public List<Autor> listarAutoresActivos() {
 		return dataAutor.buscarAutoresActivos();
+	}
+	
+	@Transactional(readOnly = true)
+	public Autor buscarAutorPorNombre(String nombre) throws ErrorServicio {
+		
+		Optional<Autor> autor = dataAutor.buscarAutorPorNombre(nombre);
+		
+		if(!autor.isEmpty()) {
+			return autor.get();
+		}else {
+			throw new ErrorServicio("*No se encontró el nombre del autor");
+		}	
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

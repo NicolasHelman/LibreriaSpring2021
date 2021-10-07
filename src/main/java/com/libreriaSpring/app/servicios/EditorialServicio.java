@@ -59,6 +59,18 @@ public class EditorialServicio {
 	public List<Editorial> listarEditorialesActivos() {
 		return dataEditorial.buscarEditorialesActivos();
 	}
+	
+	@Transactional(readOnly = true)
+	public Editorial buscarEditorialPorNombre(String nombre) throws ErrorServicio {
+		
+		Optional<Editorial> editorial = dataEditorial.buscarEditorialPorNombre(nombre);
+		
+		if(!editorial.isEmpty()) {
+			return editorial.get();
+		}else {
+			throw new ErrorServicio("*No se encontró el nombre de la editorial");
+		}	
+	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Optional<Editorial> buscarEditorialPorId(String id) {
