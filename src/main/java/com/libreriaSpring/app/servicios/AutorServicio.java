@@ -61,12 +61,12 @@ public class AutorServicio {
 	}
 	
 	@Transactional(readOnly = true)
-	public Autor buscarAutorPorNombre(String nombre) throws ErrorServicio {
+	public List<Autor> buscarAutorPorNombre(String nombre) throws ErrorServicio {
 		
-		Optional<Autor> autor = dataAutor.buscarAutorPorNombre(nombre);
+		List<Autor> autor = dataAutor.buscarAutorPorNombre(nombre);
 		
 		if(!autor.isEmpty()) {
-			return autor.get();
+			return autor;
 		}else {
 			throw new ErrorServicio("*No se encontró el nombre del autor");
 		}	

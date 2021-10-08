@@ -95,12 +95,12 @@ public class LibroServicio {
 	}
 	
 	@Transactional(readOnly = true)
-	public Libro buscarLibroPorTitulo(String titulo) throws ErrorServicio {
+	public List<Libro> buscarLibroPorTitulo(String titulo) throws ErrorServicio {
 		
-		Optional<Libro> libro = dataLibro.buscarLibroPorTitulo(titulo);
+		List<Libro> libro = dataLibro.buscarLibroPorTitulo(titulo);
 		
 		if(!libro.isEmpty()) {
-			return libro.get();
+			return libro;
 		}else {
 			throw new ErrorServicio("*No se encontró el título del libro");
 		}	

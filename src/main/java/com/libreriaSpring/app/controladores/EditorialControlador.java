@@ -35,7 +35,7 @@ public class EditorialControlador {
 	public String listarEditorialesPorNombre(ModelMap modelo, @RequestParam String nombre) throws ErrorServicio{
 		
 		try {
-			Editorial editoriales =  servicioEditorial.buscarEditorialPorNombre(nombre);
+			List<Editorial> editoriales =  servicioEditorial.buscarEditorialPorNombre(nombre);
 			modelo.addAttribute("editoriales", editoriales);
 			
 			return "editoriales";

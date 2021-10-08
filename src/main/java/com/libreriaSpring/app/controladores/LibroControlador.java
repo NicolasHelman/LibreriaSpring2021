@@ -47,7 +47,7 @@ public class LibroControlador {
 	public String listarLibrosPorTitulo(ModelMap modelo, @RequestParam String titulo) throws ErrorServicio{
 		
 		try {
-			Libro libros =  servicioLibro.buscarLibroPorTitulo(titulo);
+			List<Libro> libros =  servicioLibro.buscarLibroPorTitulo(titulo);
 			modelo.addAttribute("libros", libros);
 			
 			return "libros";

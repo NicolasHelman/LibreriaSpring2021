@@ -61,12 +61,12 @@ public class EditorialServicio {
 	}
 	
 	@Transactional(readOnly = true)
-	public Editorial buscarEditorialPorNombre(String nombre) throws ErrorServicio {
+	public List<Editorial> buscarEditorialPorNombre(String nombre) throws ErrorServicio {
 		
-		Optional<Editorial> editorial = dataEditorial.buscarEditorialPorNombre(nombre);
+		List<Editorial> editorial = dataEditorial.buscarEditorialPorNombre(nombre);
 		
 		if(!editorial.isEmpty()) {
-			return editorial.get();
+			return editorial;
 		}else {
 			throw new ErrorServicio("*No se encontró el nombre de la editorial");
 		}	

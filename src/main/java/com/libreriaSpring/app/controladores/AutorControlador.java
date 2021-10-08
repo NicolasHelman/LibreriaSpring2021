@@ -35,7 +35,7 @@ public class AutorControlador {
 	public String listarAutoresPorNombre(ModelMap modelo, @RequestParam String nombre) throws ErrorServicio{
 		
 		try {
-			Autor autores =  servicioAutor.buscarAutorPorNombre(nombre);
+			List<Autor> autores =  servicioAutor.buscarAutorPorNombre(nombre);
 			modelo.addAttribute("autores", autores);
 			
 			return "autores";
