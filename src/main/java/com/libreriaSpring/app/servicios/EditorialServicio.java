@@ -123,6 +123,9 @@ public class EditorialServicio {
 		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
 			throw new ErrorServicio("*El nombre de la editorial está incompleto");
 		}
+		if (dataEditorial.validarEditorial(nombre) != null) {
+			throw new ErrorServicio("*Ya existe una editorial con el mismo nombre");
+		}
 	}
 	
 }

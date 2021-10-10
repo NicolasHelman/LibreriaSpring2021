@@ -136,7 +136,7 @@ public class LibroControlador {
 			modelo.put("autores",autores);
 			modelo.put("editoriales",editoriales);
 			
-			return "formAgregarLibro";
+			return "formModificarLibro";
 		}
 	}
 	

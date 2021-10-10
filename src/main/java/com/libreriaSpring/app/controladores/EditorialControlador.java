@@ -97,7 +97,7 @@ public class EditorialControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 					
-			return "formAgregarEditorial";
+			return "formModificarEditorial";
 		}	
 	}
 	

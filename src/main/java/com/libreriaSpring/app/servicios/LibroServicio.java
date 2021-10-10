@@ -36,7 +36,7 @@ public class LibroServicio {
 		@SuppressWarnings("deprecation")
 		Editorial e = dataEditorial.getOne(idEditorial);
 		
-		validarLibro(isbn, titulo, anio, ejemplares, a, e);
+		validarLibro(isbn, titulo, anio, ejemplares, a, e, e.getNombre());
 				
 		Libro l = new Libro();
 		l.setIsbn(isbn);
@@ -62,7 +62,7 @@ public class LibroServicio {
 		@SuppressWarnings("deprecation")
 		Editorial e = dataEditorial.getOne(idEditorial);
 		
-		validarLibro(isbn, titulo, anio, ejemplares, a, e);
+		validarLibro(isbn, titulo, anio, ejemplares, a, e, e.getNombre());
 		
 		Optional<Libro> respuesta = dataLibro.findById(id);
 		
@@ -153,13 +153,16 @@ public class LibroServicio {
 		dataLibro.deleteById(id);
 	}
 	
-	public void validarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Autor autor, Editorial editorial) throws ErrorServicio{
+	public void validarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Autor autor, Editorial editorial, String nombreEditorial) throws ErrorServicio{
 		if (isbn == null) {
 			throw new ErrorServicio("*El isbn está incompleto");
 		}			
 		if (isbn < 10 && isbn.longValue() > 13) {
 			throw new ErrorServicio("*El Isbn debe ser de 10-13 dígitos");
-		}		
+		}
+		if (dataLibro.validarIsbn(isbn) != null) {
+			throw new ErrorServicio("*Ya existe un libro con el mismo isbn");
+		}
 		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
 			throw new ErrorServicio("*El título está incompleto");
 		}
@@ -178,5 +181,8 @@ public class LibroServicio {
 		if(editorial == null) {
 			throw new ErrorServicio("*No se encontró la editorial solicitada");
 		}	
+		if( dataLibro.validarTituloEditorial(titulo,nombreEditorial) != null ) {
+			throw new ErrorServicio("*Ya existe un libro con el mismo titulo y editorial");
+		}
 	}	
 }

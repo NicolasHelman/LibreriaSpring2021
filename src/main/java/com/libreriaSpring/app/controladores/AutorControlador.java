@@ -97,7 +97,7 @@ public class AutorControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 					
-			return "formAgregarAutor";
+			return "formModificarAutor";
 		}
 	}
 	
