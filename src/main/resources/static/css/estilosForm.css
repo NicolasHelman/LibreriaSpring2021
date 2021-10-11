@@ -1,6 +1,9 @@
 body{
     margin: 50px 0px 0px 0px;
-    background-image: url("https://www.wallpaperup.com/uploads/wallpapers/2016/03/21/914550/5848bd73be95f0534075ce6b9fa49869.jpg");
+    background-image: url("/img/fondoFormulario.jpg");
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: cover;
 }
 
 #form{
@@ -13,7 +16,8 @@ body{
     width: 90%;
     max-width: 400px;
     border-radius: 16px;
-    padding: 50px 25px;
+    padding: 45px 25px;
+    padding-bottom: 25px;
     opacity: 0.8;
     box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.8);
 }
