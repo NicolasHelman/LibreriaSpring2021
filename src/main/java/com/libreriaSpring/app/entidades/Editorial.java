@@ -18,7 +18,7 @@ public class Editorial {
     private Boolean alta;
     
     public Editorial() {
-		// TODO Auto-generated constructor stub
+		
 	}
       
 	public Editorial(String id, String nombre, Boolean alta) {

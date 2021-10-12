@@ -28,7 +28,7 @@ public class Libro {
     private Editorial editorial;
     
     public Libro() {
-		// TODO Auto-generated constructor stub
+		
 	}
       
 	public Libro(String id, Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados,
