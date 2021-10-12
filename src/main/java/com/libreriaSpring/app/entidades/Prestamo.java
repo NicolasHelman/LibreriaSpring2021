@@ -23,6 +23,7 @@ public class Prestamo {
 	private Date fechaPrestamo;
 	@Temporal(TemporalType.DATE)
 	private Date fechaDevolucion;
+	private Boolean alta;
 	@ManyToOne
 	private Cliente cliente;
 	@ManyToOne
@@ -32,11 +33,12 @@ public class Prestamo {
 		
 	}
 
-	public Prestamo(String id, Date fechaPrestamo, Date fechaDevolucion, Cliente cliente, Libro libro) {
+	public Prestamo(String id, Date fechaPrestamo, Date fechaDevolucion, Boolean alta, Cliente cliente, Libro libro) {
 		super();
 		this.id = id;
 		this.fechaPrestamo = fechaPrestamo;
 		this.fechaDevolucion = fechaDevolucion;
+		this.alta = alta;
 		this.cliente = cliente;
 		this.libro = libro;
 	}
@@ -65,6 +67,14 @@ public class Prestamo {
 		this.fechaDevolucion = fechaDevolucion;
 	}
 
+	public Boolean getAlta() {
+		return alta;
+	}
+
+	public void setAlta(Boolean alta) {
+		this.alta = alta;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -80,6 +90,6 @@ public class Prestamo {
 	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
-	
+
 	
 }
