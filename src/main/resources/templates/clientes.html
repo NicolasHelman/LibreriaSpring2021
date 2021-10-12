@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="/css/estilos.css">
 
-    <title>Autores</title>
+    <title>Clientes</title>
   </head>
 
   <body>
@@ -29,14 +29,14 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
- 				          <li class="nav-item">
+ 				  <li class="nav-item">
                     <a class="nav-link" aria-current="page" th:href="@{/libreria}">Libreria</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" th:href="@{/libros}">Libros</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/autores}">Autores</a>          
+                    <a class="nav-link" th:href="@{/autores}">Autores</a>          
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" th:href="@{/editoriales}">Editoriales</a>          
@@ -45,7 +45,7 @@
                     <a class="nav-link" th:href="@{/prestamos}">Préstamos</a>          
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" th:href="@{/clientes}">Clientes</a>          
+                    <a class="nav-link active" th:href="@{/clientes}">Clientes</a>          
                   </li>
                 </ul>
                 <form class="d-flex">
@@ -61,16 +61,16 @@
     <!-- ============ SECTION ============-->
     <section id="tabla">
       <div class="titulo bg-dark">
-    	 <h1>AUTORES</h1>
+    	 <h1>CLIENTES</h1>
       </div>
       <div class="boton-tabla">   	  
-      	  <a th:href="@{/autores/agregarAutor}" class="btn btn-primary btn_agregar">Agregar</a> 	
+      	  <a th:href="@{/clientes/agregarCliente}" class="btn btn-primary btn_agregar">Agregar</a> 	
       	    	
       	  <div>
-      	  	<form th:action="@{/autores/buscarAutor}" th:object=${autor} method="POST" class="form">
-      	  		<input class="buscador bg-dark" th:value="${nombre}" type="text" name="nombre" placeholder=" Nombre del Autor">
+      	  	<form th:action="@{/clientes/buscarCliente}" th:object=${cliente} method="POST" class="form">
+      	  		<input class="buscador bg-dark" th:value="${nombre}" type="text" name="nombre" placeholder=" Nombre del Cliente">
       	  		<input type="submit" value="🔍" class="form__button bg-dark btn_buscar">
-      	  		<a th:href="@{/autores}" class="btn btn-dark btn_actualizar"><i class="uil uil-sync"></i></a>
+      	  		<a th:href="@{/clientes}" class="btn btn-dark btn_actualizar"><i class="uil uil-sync"></i></a>
       	  	</form>
       	  	<p th:if="${ErrorBuscar != null}" th:text="${ErrorBuscar}"></p>
       	  </div> 
@@ -80,6 +80,8 @@
 	              <thead class="thead-dark">
 	                <tr>
 	                  <th>Nombre y Apellido</th>
+                      <th>Dni</th>
+                      <th>Teléfono</th>
 	                  <th>¿Está Activo?</th>
 	                  <th>Modificar</th>
 	                  <th>Alta/Baja</th>
@@ -87,22 +89,25 @@
 	                </tr>
 	              </thead>
 	              <tbody>
-	                <tr th:each="autor:${autores}">
-	                  <td th:text="${autor.nombre}"></td>
+	                <tr th:each="cliente:${clientes}">
+	                  <td th:text="${cliente.nombre}"></td>
+                      <td th:text="${cliente.dni}"></td>
+                      <td th:text="${cliente.telefono}"></td>
+
 	                  <td>
-						<i th:if="${autor.alta}" class="fa fa-circle text-success"></i>
-						<i th:unless="${autor.alta}" class="fa fa-circle text-danger"></i>
+						<i th:if="${cliente.alta}" class="fa fa-circle text-success"></i>
+						<i th:unless="${cliente.alta}" class="fa fa-circle text-danger"></i>
 					  </td>           
 	                  <td>
-	                     <a th:href="@{/autores/modificarAutor/__${autor.id}__}"><i class="fa fa-cogs text-warning"></i></a>
+	                     <a th:href="@{/clientes/modificarCliente/__${cliente.id}__}"><i class="fa fa-cogs text-warning"></i></a>
 	                  </td>
 	                  <td>
-	                     <a th:href="@{/autores/altaAutor/__${autor.id}__}"><i class="fa fa-arrow-up text-success"></i></a>
+	                     <a th:href="@{/clientes/altaCliente/__${cliente.id}__}"><i class="fa fa-arrow-up text-success"></i></a>
 	                      /
-	                     <a th:href="@{/autores/bajaAutor/__${autor.id}__}"><i class="fa fa-ban text-danger"></i></a>
+	                     <a th:href="@{/clientes/bajaCliente/__${cliente.id}__}"><i class="fa fa-ban text-danger"></i></a>
 	                  </td>  
 	                  <td>
-	                     <a th:href="@{/autores/eliminarAutorPorId/__${autor.id}__}"><i class="fa fa-trash text-danger"></i></a>
+	                     <a th:href="@{/clientes/eliminarClientePorId/__${cliente.id}__}"><i class="fa fa-trash text-danger"></i></a>
 	                  </td>               
 	                </tr>
 	              </tbody>
