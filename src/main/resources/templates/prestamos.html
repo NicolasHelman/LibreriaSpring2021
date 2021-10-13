@@ -64,8 +64,11 @@
     	 <h1>PRÉSTAMOS</h1>
       </div>
       <div class="boton-tabla">   	  
-      	  <a th:href="@{/prestamos/agregarPrestamo}" class="btn btn-primary btn_agregar">Agregar</a> 	
-      	    	
+      	  <div>
+      	  	 <a th:href="@{/prestamos/agregarPrestamo}" class="btn btn-primary btn_agregar">Préstamo</a> 
+      	  	 <a th:href="@{/prestamos/devolverPrestamo}" class="btn btn-danger btn_agregar">Devolución</a> 
+      	  </div>
+      	 	  	    	
       	  <div>
       	  	<form th:action="@{/prestamos/buscarPrestamo}" th:object=${prestamo} method="POST" class="form">
       	  		<input class="buscador bg-dark" th:value="${nombre}" type="text" name="nombre" placeholder=" Nombre del Cliente">
@@ -94,7 +97,7 @@
 	                  <td th:text="${prestamo.cliente.getNombre()}"></td>
                       <td th:text="${prestamo.libro.getTitulo()}"></td>
                       <td th:text="${prestamo.fechaPrestamo}"></td>
-                      <td th:text="${prestamo.nombre}"></td>
+                      <td th:text="${prestamo.fechaDevolucion}"></td>
 
 	                  <td>
 						<i th:if="${prestamo.alta}" class="fa fa-circle text-success"></i>
@@ -119,7 +122,7 @@
     </section>
 
     <!-- ============ FOOTER ============-->
-    <footer class="bg-dark text-center text-white fixed-bottom">
+    <footer class="bg-dark text-center text-white">
         <div id="foot">
         <!-- Grid container -->
         <div class="container p-4 pb-0">

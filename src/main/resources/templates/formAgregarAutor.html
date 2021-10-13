@@ -60,6 +60,8 @@
         <form th:action="@{/autores/agregarAutor}" th:object=${autor} method="POST" class="form">
             <div class="form__container">
                 <h2 class="form__title">Datos del Autor</h2>
+                
+                <label class="form__label" for="">Nombre y Apellido:</label>
                 <input name="nombre" th:value="${nombre}" type="text" class="form__input" placeholder="Nombre y Apellido" required>
                 
                 <p th:if="${Error != null}" th:text="${Error}"></p>

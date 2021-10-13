@@ -61,13 +61,13 @@
             <div class="form__container">
                 <h2 class="form__title">Datos del Cliente</h2>
 
-                <label class="form__label" for="">Nombre y Apellido</label>
+                <label class="form__label" for="">Nombre y Apellido:</label>
                 <input name="nombre" th:value="${nombre}" type="text" class="form__input" placeholder="Nombre y Apellido" required>
 
-                <label class="form__label" for="">Dni</label>
+                <label class="form__label" for="">Dni:</label>
                 <input name="dni" th:value="${dni}" type="number" class="form__input" placeholder="Dni" required>
                 
-                <label class="form__label" for="">Teléfono</label>
+                <label class="form__label" for="">Teléfono:</label>
                 <input name="telefono" th:value="${telefono}" type="number" class="form__input" placeholder="Teléfono" required>
                 
                 <p th:if="${Error != null}" th:text="${Error}"></p>

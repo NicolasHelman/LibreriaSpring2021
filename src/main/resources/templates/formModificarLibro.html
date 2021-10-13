@@ -62,15 +62,29 @@
             <div class="form__container">
                 <h2 class="form__title">Modificar Libro</h2>
                 <input name="id" th:value="${id}" type="hidden" class="form__input" placeholder="Id">
-                <input name="isbn" th:value="${isbn}" type="number" class="form__input" placeholder="Isbn" required>
+                
+                <label class="form__label" for="">Isbn:</label>
+                <input name="isbn" th:value="${isbn}" type="number" class="form__input" placeholder="Isbn" required readonly>
+                
+                <label class="form__label" for="">Título:</label>
                 <input name="titulo" th:value="${titulo}" type="text" class="form__input" placeholder="Título" required>
+                
+                <label class="form__label" for="">Año:</label>
                 <input name="anio" th:value="${anio}" type="number" class="form__input" placeholder="Año" required>
+                
+                <label class="form__label" for="">Ejemplares:</label>
                 <input name="ejemplares" th:value="${ejemplares}" type="number" class="form__input" placeholder="Ejemplares" required>
+                
+                <label class="form__label" for="">Ejemplares Prestados:</label>
                 <input name="ejemplaresPrestados" th:value="${ejemplaresPrestados}" type="number" class="form__input" placeholder="Ejemplares Prestados" required>
+               
+				<label class="form__label" for="">Autor:</label>               
                 <select class="form__input" name="idAutor" required>
                 	<option selected disabled value="">Autor</option>
                 	<option th:each="autor:${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option>
                 </select>
+                
+                <label class="form__label" for="">Editorial:</label>
                 <select class="form__input" name="idEditorial" required>
                 	<option selected disabled value="">Editorial</option>
                 	<option th:each="editorial:${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>

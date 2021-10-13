@@ -36,7 +36,7 @@ public class LibroServicio {
 		@SuppressWarnings("deprecation")
 		Editorial e = dataEditorial.getOne(idEditorial);
 		
-		validarLibro(isbn, titulo, anio, ejemplares, a, e, e.getNombre());
+		validarCrearLibro(isbn, titulo, anio, ejemplares, a, e, e.getNombre());
 				
 		Libro l = new Libro();
 		l.setIsbn(isbn);
@@ -62,23 +62,27 @@ public class LibroServicio {
 		@SuppressWarnings("deprecation")
 		Editorial e = dataEditorial.getOne(idEditorial);
 		
-		validarLibro(isbn, titulo, anio, ejemplares, a, e, e.getNombre());
+		validarModificarLibro(isbn, titulo, anio, ejemplares, a, e);
 		
 		Optional<Libro> respuesta = dataLibro.findById(id);
 		
 		if (respuesta.isPresent()) {
 			Libro l = respuesta.get();
-			l.setIsbn(isbn);
-			l.setTitulo(titulo);
-			l.setAnio(anio);
-			l.setEjemplares(ejemplares);
-			l.setEjemplaresPrestados(ejemplaresPrestados);
-	        l.setEjemplaresRestantes(l.getEjemplares() - l.getEjemplaresPrestados());
-			
-			l.setAutor(a);
-			l.setEditorial(e);
-			
-			dataLibro.save(l);
+			if (l.getId().equals(id)) {
+				l.setIsbn(isbn);
+				l.setTitulo(titulo);
+				l.setAnio(anio);
+				l.setEjemplares(ejemplares);
+				l.setEjemplaresPrestados(ejemplaresPrestados);
+		        l.setEjemplaresRestantes(l.getEjemplares() - l.getEjemplaresPrestados());
+				
+				l.setAutor(a);
+				l.setEditorial(e);
+				
+				dataLibro.save(l);
+			}else {
+				throw new ErrorServicio("*No puede realizar la modificacion");
+			}		
 		}else {
 			throw new ErrorServicio("No se encontró el libro solicitado");
 		}
@@ -153,7 +157,7 @@ public class LibroServicio {
 		dataLibro.deleteById(id);
 	}
 	
-	public void validarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Autor autor, Editorial editorial, String nombreEditorial) throws ErrorServicio{
+	public void validarCrearLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Autor autor, Editorial editorial, String nombreEditorial) throws ErrorServicio{
 		if (isbn == null) {
 			throw new ErrorServicio("*El isbn está incompleto");
 		}			
@@ -184,5 +188,32 @@ public class LibroServicio {
 		if( dataLibro.validarTituloEditorial(titulo,nombreEditorial) != null ) {
 			throw new ErrorServicio("*Ya existe un libro con el mismo titulo y editorial");
 		}
+	}	
+	
+	public void validarModificarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Autor autor, Editorial editorial) throws ErrorServicio{
+		if (isbn == null) {
+			throw new ErrorServicio("*El isbn está incompleto");
+		}			
+		if (isbn < 10 && isbn.longValue() > 13) {
+			throw new ErrorServicio("*El Isbn debe ser de 10-13 dígitos");
+		}
+		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
+			throw new ErrorServicio("*El título está incompleto");
+		}
+		if (anio == null) {
+			throw new ErrorServicio("*El año está incompleto");
+		}
+		if (anio < 1900 || anio > 2021) {
+			throw new ErrorServicio("*El año ingresado es invalido");
+		}
+		if (ejemplares == null || ejemplares <= 0) {
+			throw new ErrorServicio("*Los ejemplares están incompletos");
+		}
+		if(autor == null) {
+			throw new ErrorServicio("*No se encontró el autor solicitado");
+		}	
+		if(editorial == null) {
+			throw new ErrorServicio("*No se encontró la editorial solicitada");
+		}	
 	}	
 }

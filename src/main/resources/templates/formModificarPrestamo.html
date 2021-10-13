@@ -64,20 +64,23 @@
 
                 <input name="id" th:value="${id}" type="hidden" class="form__input" placeholder="Id">
 
-                <label class="form__label" for="">Cliente</label>
+                <label class="form__label" for="">Cliente:</label>
                 <select class="form__input" name="idCliente" required>
                 	<option selected disabled value="">Cliente</option>
                 	<option th:each="cliente:${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
                 </select>
 
-                <label class="form__label" for="">Libro</label>
+                <label class="form__label" for="">Libro:</label>
                 <select class="form__input" name="idLibro" required>
                 	<option selected disabled value="">Libro</option>
                 	<option th:each="libro:${libros}" th:value="${libro.id}" th:text="${libro.titulo}"></option>
                 </select>
+                
+                <label class="form__label" for="">Fecha Préstamo:</label>
+                <input name="fechaPrestamo" th:value="${fechaPrestamo}" type="date" class="form__input" placeholder="Fecha Préstamo" required>
 
-                <label class="form__label" for="">Fecha Devolución</label>
-                <input name="fechaPrestamo" th:value="${fechaPrestamo}" type="date" class="form__input" placeholder="Fecha Devolución" required>           
+                <label class="form__label" for="">Fecha Devolución:</label>
+                <input name="fechaDevolucion" th:value="${fechaDevolucion}" type="date" class="form__input" placeholder="Fecha Devolución" required>           
 
                 <p th:if="${Error != null}" th:text="${Error}"></p>
 

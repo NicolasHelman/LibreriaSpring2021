@@ -62,6 +62,8 @@
             <div class="form__container">
                 <h2 class="form__title">Modificar Editorial</h2>
                 <input name="id" th:value="${id}" type="hidden" class="form__input" placeholder="Id">
+                
+                <label class="form__label" for="">Nombre:</label>
                 <input name="nombre" th:value="${nombre}" type="text" class="form__input" placeholder="Nombre" required>              
 
                 <p th:if="${Error != null}" th:text="${Error}"></p>

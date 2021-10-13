@@ -61,6 +61,8 @@
         <form th:action="@{/editoriales/agregarEditorial}" th:object=${editorial} method="POST" class="form">
             <div class="form__container">
                 <h2 class="form__title">Datos de la Editorial</h2>
+                
+                <label class="form__label" for="">Nombre:</label>
                 <input name="nombre" th:value="${nombre}" type="text" class="form__input" placeholder="Nombre" required>
                 
                 <p th:if="${Error != null}" th:text="${Error}"></p>

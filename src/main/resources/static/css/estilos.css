@@ -12,6 +12,7 @@ section div img{
 
 #tabla{
 	margin-top: 150px;
+	height: 100%;
 }
 
 .titulo{
@@ -33,9 +34,9 @@ section div img{
 }
 
 .tablas{   
-    height: 300px;   
+    height: 400px;   
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     opacity: 0.9;
 }
 
