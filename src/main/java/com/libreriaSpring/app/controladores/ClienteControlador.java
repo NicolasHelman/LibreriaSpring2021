@@ -101,6 +101,7 @@ public class ClienteControlador {
 		} catch (ErrorServicio e) {
 			modelo.put("Error", e.getMessage());
 			// devolvemos los valores ingresados al formulario
+			modelo.put("id", id);
 			modelo.put("nombre", nombre);
 			modelo.put("dni", dni);
 			modelo.put("telefono", telefono);

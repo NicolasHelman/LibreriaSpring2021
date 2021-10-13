@@ -20,6 +20,8 @@ public class ClienteServicio {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void crearCliente(String nombre, Long dni, String telefono) throws ErrorServicio{
 		
+		validarCliente(nombre,dni,telefono);
+		
 		Cliente c = new Cliente();
 		
 		c.setNombre(nombre);
@@ -33,8 +35,8 @@ public class ClienteServicio {
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void modificarCliente(String id, String nombre, Long dni, String telefono) throws ErrorServicio {
-		
-		
+			
+		validarCliente(nombre,dni,telefono);
 		
 		Optional<Cliente> clientes = dataCliente.findById(id);		
 		
@@ -94,7 +96,7 @@ public class ClienteServicio {
 			
 			return dataCliente.save(c);
 		}else {
-			throw new ErrorServicio("No se encontro el cliente solicitado");
+			throw new ErrorServicio("No se encontró el cliente solicitado");
 		}
 	}
 
@@ -110,7 +112,7 @@ public class ClienteServicio {
 			
 			return dataCliente.save(c);
 		}else {
-			throw new ErrorServicio("No se encontro el cliente solicitado");
+			throw new ErrorServicio("No se encontró el cliente solicitado");
 		}
 	}
 	
@@ -122,6 +124,33 @@ public class ClienteServicio {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminarClientePorId(String id) throws ErrorServicio {
 		dataCliente.deleteById(id);
+	}
+	
+	public void validarCliente(String nombre, Long dni, String telefono) throws ErrorServicio{	
+		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
+			throw new ErrorServicio("*El nombre del cliente está incompleto");
+		}
+		if (dataCliente.validarNombreCliente(nombre) != null) {
+			throw new ErrorServicio("*Ya existe un cliente con el mismo nombre");
+		}	
+		if (dni.toString() == null || dni.toString().isEmpty() || dni.toString().contains("  ")) {
+			throw new ErrorServicio("*El dni del cliente está incompleto");
+		}
+		if (dni.toString().length() != 8) {
+			throw new ErrorServicio("*El dni debe ser de 8 dígitos");
+		}
+		if (dataCliente.validarDniCliente(dni) != null) {
+			throw new ErrorServicio("*Ya existe un cliente con el mismo dni");
+		}	
+		if (telefono == null || telefono.isEmpty() || telefono.contains("  ")) {
+			throw new ErrorServicio("*El telefono del cliente está incompleto");
+		}
+		if (telefono.length() != 10) {
+			throw new ErrorServicio("*El teléfono debe ser de 10 dígitos");
+		}
+		if (dataCliente.validarTelefonoCliente(telefono) != null) {
+			throw new ErrorServicio("*Ya existe un cliente con el mismo teléfono");
+		}
 	}
 	
 }

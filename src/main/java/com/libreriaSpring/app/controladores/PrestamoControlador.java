@@ -1,5 +1,7 @@
 package com.libreriaSpring.app.controladores;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -77,10 +79,14 @@ public class PrestamoControlador {
 	
 	@SuppressWarnings("deprecation")
 	@PostMapping("/agregarPrestamo") 
-	public String guardarPrestamo(ModelMap modelo, @RequestParam String idCliente, @RequestParam String idLibro, @RequestParam Date fechaDevolucion) throws ErrorServicio{
+	public String guardarPrestamo(ModelMap modelo, @RequestParam String idCliente, @RequestParam String idLibro, @RequestParam String fechaDevolucion) throws ErrorServicio, ParseException{
 		
 		try {
-			servicioPrestamo.crearPrestamo(idCliente, idLibro, fechaDevolucion);
+			// conversion de fecha tipo string a tipo date
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date fechaDev = sdf.parse(fechaDevolucion);
+			
+			servicioPrestamo.crearPrestamo(idCliente, idLibro, fechaDev);
 			
 			return "redirect:/prestamos";	
 			
@@ -99,6 +105,21 @@ public class PrestamoControlador {
 		}		
 	}
 	
+	@GetMapping("/devolverPrestamo/{id}")
+	public String devolverPrestamo(@PathVariable String id) {
+				
+		try {
+			servicioPrestamo.devolverPrestamo(id);
+			
+			return "redirect:/prestamos";		
+			
+		} catch (Exception e) {
+			
+			return "redirect:/prestamos";	
+		}
+		
+	}
+	
 	@GetMapping("/modificarPrestamo/{id}")
 	public String modificarPrestamo(ModelMap modelo, @PathVariable String id) {
 		
@@ -115,22 +136,29 @@ public class PrestamoControlador {
 	}
 	
 	@PostMapping("/modificarPrestamo") 
-	public String editarPrestamo(ModelMap modelo, @RequestParam String id, @RequestParam String idCliente, @RequestParam String idLibro, @RequestParam Date fechaPrestamo, @RequestParam Date fechaDevolucion) throws ErrorServicio{
+	public String editarPrestamo(ModelMap modelo, @RequestParam String id, @RequestParam String idCliente, @RequestParam String idLibro, @RequestParam String fechaPrestamo, @RequestParam String fechaDevolucion) throws ErrorServicio, ParseException{
 		
 		try {
-			servicioPrestamo.modificarPrestamo(id, idCliente, idLibro, fechaPrestamo, fechaDevolucion);
+			// conversion de fecha tipo string a tipo date
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date fechaPres = sdf.parse(fechaPrestamo);
+			Date fechaDev = sdf.parse(fechaDevolucion);
 			
-			return "redirect:/libros";	
+			servicioPrestamo.modificarPrestamo(id, idCliente, idLibro, fechaPres, fechaDev);
+			
+			return "redirect:/prestamos";	
 			
 		} catch (ErrorServicio e) {
 			modelo.put("Error", e.getMessage());
 			// devolvemos los valores ingresados al formulario
+			modelo.put("id", id);
 			List<Cliente> clientes = servicioCliente.listarClientes();
 			List<Libro> libros = servicioLibro.listarLibros();
 			modelo.put("clientes",clientes);
 			modelo.put("libros",libros);
-			
-			
+			modelo.addAttribute("fechaPrestamo",fechaPrestamo);
+			modelo.addAttribute("fechaDevolucion",fechaDevolucion);
+					
 			return "formModificarPrestamo";
 		}
 	}

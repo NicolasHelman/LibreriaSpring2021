@@ -64,10 +64,7 @@
     	 <h1>PRÉSTAMOS</h1>
       </div>
       <div class="boton-tabla">   	  
-      	  <div>
-      	  	 <a th:href="@{/prestamos/agregarPrestamo}" class="btn btn-primary btn_agregar">Préstamo</a> 
-      	  	 <a th:href="@{/prestamos/devolverPrestamo}" class="btn btn-danger btn_agregar">Devolución</a> 
-      	  </div>
+      	  <a th:href="@{/prestamos/agregarPrestamo}" class="btn btn-primary btn_agregar">Agregar</a>     	  	 
       	 	  	    	
       	  <div>
       	  	<form th:action="@{/prestamos/buscarPrestamo}" th:object=${prestamo} method="POST" class="form">
@@ -87,6 +84,7 @@
                       <th>Fecha Préstamo</th>
                       <th>Fecha Devolución</th>
 	                  <th>¿Está Activo?</th>
+	                  <th>Devolución</th>
 	                  <th>Modificar</th>
 	                  <th>Alta/Baja</th>
 	                  <th>Eliminar</th>
@@ -102,7 +100,10 @@
 	                  <td>
 						<i th:if="${prestamo.alta}" class="fa fa-circle text-success"></i>
 						<i th:unless="${prestamo.alta}" class="fa fa-circle text-danger"></i>
-					  </td>           
+					  </td>   
+					  <td>
+					  	<a th:href="@{/prestamos/devolverPrestamo/__${prestamo.id}__}"><i class="fa fa-book text-info"></i></a>			  	
+					  </td>        
 	                  <td>
 	                     <a th:href="@{/prestamos/modificarPrestamo/__${prestamo.id}__}"><i class="fa fa-cogs text-warning"></i></a>
 	                  </td>

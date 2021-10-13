@@ -35,10 +35,13 @@ public class PrestamoServicio {
 		
 		@SuppressWarnings("deprecation")
 		Cliente c = dataCliente.getOne(idCliente);
+		
 		@SuppressWarnings("deprecation")
 		Libro l = dataLibro.getOne(idLibro);
 		
 		Date hoy = new Date();
+		
+		validarPrestamo(c,l,hoy,fechaDevolucion);
 				
 		Prestamo p = new Prestamo();
 		p.setCliente(c);
@@ -47,9 +50,28 @@ public class PrestamoServicio {
 		p.setFechaDevolucion(fechaDevolucion);	
 		p.setAlta(true);
 		
+		p.getLibro().setEjemplaresPrestados(p.getLibro().getEjemplaresPrestados() + 1);
+		p.getLibro().setEjemplaresRestantes(p.getLibro().getEjemplaresRestantes() - 1);;
+		
 		dataPrestamo.save(p);
 		
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void devolverPrestamo(String id) throws ErrorServicio{
+		
+					
+		Optional<Prestamo> respuesta = dataPrestamo.findById(id);
+		Prestamo p = respuesta.get();
+				
+		p.getLibro().setEjemplaresPrestados(p.getLibro().getEjemplaresPrestados() - 1);
+		p.getLibro().setEjemplaresRestantes(p.getLibro().getEjemplaresRestantes() + 1);
+				
+		dataPrestamo.save(p);	
+				
+	    dataPrestamo.deleteById(id);
+
+	}	
 	
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
@@ -59,7 +81,8 @@ public class PrestamoServicio {
 		Cliente c = dataCliente.getOne(idCliente);
 		@SuppressWarnings("deprecation")
 		Libro l = dataLibro.getOne(idLibro);
-				
+		
+		validarPrestamo(c,l,fechaPrestamo,fechaDevolucion);
 		
 		Optional<Prestamo> respuesta = dataPrestamo.findById(id);
 		
@@ -67,9 +90,9 @@ public class PrestamoServicio {
 			Prestamo p = respuesta.get();
 			if (p.getId().equals(id)) {
 				p.setCliente(c);
-				p.setLibro(l);	
+				p.setLibro(l);
 				p.setFechaPrestamo(fechaPrestamo);
-				p.setFechaDevolucion(fechaDevolucion);	
+				p.setFechaDevolucion(fechaDevolucion);
 				p.setAlta(true);
 				
 				dataPrestamo.save(p);			
@@ -150,4 +173,18 @@ public class PrestamoServicio {
 	public void eliminarPrestamoPorId(String id) throws ErrorServicio {
 		dataPrestamo.deleteById(id);
 	}
+	
+	public void validarPrestamo(Cliente cliente, Libro libro, Date fechaPrestamo, Date fechaDevolucion) throws ErrorServicio{
+		if(cliente.toString() == null) {
+			throw new ErrorServicio("*No se encontró el cliente solicitado");
+		}	
+		if(libro.toString() == null) {
+			throw new ErrorServicio("*No se encontró el libro solicitada");
+		}	
+		if(fechaDevolucion.after(fechaPrestamo) == false) {
+			throw new ErrorServicio("*La fecha devolución es anterior o igual a la fecha prestamo");
+		}
+		
+	}
+	
 }

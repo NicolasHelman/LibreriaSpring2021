@@ -18,4 +18,13 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, String> {
 	@Query("SELECT c FROM Cliente c WHERE c.nombre LIKE %:nombre%")
 	public List<Cliente> buscarClientePorNombre(@Param("nombre") String nombre);
 	
+	@Query("SELECT c FROM Cliente c WHERE c.nombre LIKE :nombre")
+	public Cliente validarNombreCliente(@Param("nombre") String nombre);
+	
+	@Query("SELECT c FROM Cliente c WHERE c.dni LIKE :dni")
+	public Cliente validarDniCliente(@Param("dni") Long dni);
+	
+	@Query("SELECT c FROM Cliente c WHERE c.telefono LIKE :telefono")
+	public Cliente validarTelefonoCliente(@Param("telefono") String telefono);
+	
 }

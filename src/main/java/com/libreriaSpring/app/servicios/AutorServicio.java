@@ -123,7 +123,7 @@ public class AutorServicio {
 		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
 			throw new ErrorServicio("*El nombre del autor está incompleto");
 		}
-		if (dataAutor.validarAutor(nombre) != null) {
+		if (dataAutor.validarNombreAutor(nombre) != null) {
 			throw new ErrorServicio("*Ya existe un autor con el mismo nombre");
 		}
 	}
