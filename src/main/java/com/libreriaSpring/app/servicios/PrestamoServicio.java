@@ -43,18 +43,22 @@ public class PrestamoServicio {
 		
 		validarPrestamo(c,l,hoy,fechaDevolucion);
 				
-		Prestamo p = new Prestamo();
-		p.setCliente(c);
-		p.setLibro(l);	
-		p.setFechaPrestamo(hoy);
-		p.setFechaDevolucion(fechaDevolucion);	
-		p.setAlta(true);
-		
-		p.getLibro().setEjemplaresPrestados(p.getLibro().getEjemplaresPrestados() + 1);
-		p.getLibro().setEjemplaresRestantes(p.getLibro().getEjemplaresRestantes() - 1);;
-		
-		dataPrestamo.save(p);
-		
+
+		if (l.getEjemplaresRestantes() > 0) {
+			Prestamo p = new Prestamo();
+			p.setCliente(c);
+			p.setLibro(l);	
+			p.setFechaPrestamo(hoy);
+			p.setFechaDevolucion(fechaDevolucion);	
+			p.setAlta(true);
+            p.getLibro().setEjemplaresPrestados(p.getLibro().getEjemplaresPrestados() + 1);
+    		p.getLibro().setEjemplaresRestantes(p.getLibro().getEjemplaresRestantes() - 1);
+    		
+    		dataPrestamo.save(p);
+        } else {
+        	throw new ErrorServicio("*No hay stock del libro '"+l.getTitulo()+"'");
+        }
+
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

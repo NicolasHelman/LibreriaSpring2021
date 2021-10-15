@@ -115,7 +115,7 @@ public class PrestamoControlador {
 			
 		} catch (Exception e) {
 			
-			return "redirect:/prestamos";	
+			return "redirect:/prestamos";
 		}
 		
 	}

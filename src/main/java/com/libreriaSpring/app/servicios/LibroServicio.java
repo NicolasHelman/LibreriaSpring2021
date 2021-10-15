@@ -206,7 +206,7 @@ public class LibroServicio {
 		if (anio < 1900 || anio > 2021) {
 			throw new ErrorServicio("*El año ingresado es invalido");
 		}
-		if (ejemplares.toString() == null || ejemplares <= 0) {
+		if (ejemplares.toString() == null) {
 			throw new ErrorServicio("*Los ejemplares están incompletos");
 		}
 		if(autor.toString() == null) {
