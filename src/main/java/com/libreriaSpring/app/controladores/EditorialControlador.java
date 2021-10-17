@@ -28,7 +28,7 @@ public class EditorialControlador {
 		// modelo.addAttribute vamos a enviar toda la lista a la tabla
 		modelo.addAttribute("editoriales", editoriales);
 		
-		return "editoriales";
+		return "/editorial/editoriales";
 	}
 	
 	@PostMapping("/buscarEditorial")
@@ -38,14 +38,14 @@ public class EditorialControlador {
 			List<Editorial> editoriales =  servicioEditorial.buscarEditorialPorNombre(nombre);
 			modelo.addAttribute("editoriales", editoriales);
 			
-			return "editoriales";
+			return "/editorial/editoriales";
 			
 		} catch (Exception e) {
 			modelo.put("ErrorBuscar", e.getMessage());
 			// devolvemos los valores ingresados al formulario
 		    modelo.put("nombre", nombre);
 			
-			return "editoriales";
+			return "/editorial/editoriales";
 		}		
 	}	
 	
@@ -54,7 +54,7 @@ public class EditorialControlador {
 		List<Editorial> editoriales = servicioEditorial.listarEditoriales();
 		modelo.addAttribute("editoriales", editoriales);
 		
-		return "formAgregarEditorial";
+		return "/editorial/formAgregarEditorial";
 	}
 	
 	@PostMapping("/agregarEditorial") 
@@ -70,7 +70,7 @@ public class EditorialControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 			
-			return "formAgregarEditorial";
+			return "/editorial/formAgregarEditorial";
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class EditorialControlador {
 
 		modelo.addAttribute("nombre", editoriales.get().getNombre());
 				
-		return "formModificarEditorial";
+		return "/editorial/formModificarEditorial";
 	}
 	
 	@PostMapping("/modificarEditorial") 
@@ -97,7 +97,7 @@ public class EditorialControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 					
-			return "formModificarEditorial";
+			return "/editorial/formModificarEditorial";
 		}	
 	}
 	

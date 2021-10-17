@@ -40,7 +40,7 @@ public class LibroControlador {
 		// modelo.addAttribute vamos a enviar toda la lista a la tabla
 		modelo.addAttribute("libros", libros);
 		
-		return "libros";
+		return "/libro/libros";
 	}
 	
 	@PostMapping("/buscarLibro")
@@ -50,14 +50,14 @@ public class LibroControlador {
 			List<Libro> libros =  servicioLibro.buscarLibroPorTitulo(titulo);
 			modelo.addAttribute("libros", libros);
 			
-			return "libros";
+			return "/libro/libros";
 			
 		} catch (Exception e) {
 			modelo.put("ErrorBuscar", e.getMessage());
 			// devolvemos los valores ingresados al formulario
 		    modelo.put("titulo", titulo);
 			
-			return "libros";
+			return "/libro/libros";
 		}		
 	}	
 	
@@ -68,7 +68,7 @@ public class LibroControlador {
 		modelo.addAttribute("autores",autores);
 		modelo.addAttribute("editoriales",editoriales);
 		
-		return "formAgregarLibro";
+		return "/libro/formAgregarLibro";
 	}
 	
 	@PostMapping("/agregarLibro") 
@@ -77,7 +77,7 @@ public class LibroControlador {
 		try {
 			servicioLibro.crearLibro(isbn, titulo, anio, ejemplares, idAutor, idEditorial);
 			
-			return "redirect:/libros";	
+			return "redirect:/libro/libros";	
 			
 		} catch (ErrorServicio e) {
 			modelo.put("Error", e.getMessage());
@@ -91,7 +91,7 @@ public class LibroControlador {
 			modelo.put("autores",autores);
 			modelo.put("editoriales",editoriales);
 			
-			return "formAgregarLibro";
+			return "/libro/formAgregarLibro";
 		}
 			
 	}
@@ -111,7 +111,7 @@ public class LibroControlador {
 		modelo.addAttribute("autores", autores);
 		modelo.addAttribute("editoriales", editoriales);
 				
-		return "formModificarLibro";
+		return "/libro/formModificarLibro";
 	}
 	
 	@PostMapping("/modificarLibro") 
@@ -120,7 +120,7 @@ public class LibroControlador {
 		try {
 			servicioLibro.modificarLibro(id, isbn, titulo, anio, ejemplares, ejemplaresPrestados, idAutor, idEditorial);
 			
-			return "redirect:/libros";	
+			return "redirect:/libro/libros";	
 			
 		} catch (ErrorServicio e) {
 			modelo.put("Error", e.getMessage());
@@ -136,7 +136,7 @@ public class LibroControlador {
 			modelo.put("autores",autores);
 			modelo.put("editoriales",editoriales);
 			
-			return "formModificarLibro";
+			return "/libro/formModificarLibro";
 		}
 	}
 	

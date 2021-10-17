@@ -28,7 +28,7 @@ public class AutorControlador {
 		// modelo.addAttribute vamos a enviar toda la lista a la tabla
 		modelo.addAttribute("autores", autores);
 		
-		return "autores";
+		return "/autor/autores";
 	}
 	
 	@PostMapping("/buscarAutor")
@@ -38,14 +38,14 @@ public class AutorControlador {
 			List<Autor> autores =  servicioAutor.buscarAutorPorNombre(nombre);
 			modelo.addAttribute("autores", autores);
 			
-			return "autores";
+			return "/autor/autores";
 			
 		} catch (Exception e) {
 			modelo.put("ErrorBuscar", e.getMessage());
 			// devolvemos los valores ingresados al formulario
 		    modelo.put("nombre", nombre);
 			
-			return "autores";
+			return "/autor/autores";
 		}		
 	}	
 	
@@ -54,7 +54,7 @@ public class AutorControlador {
 		List<Autor> autores = servicioAutor.listarAutores();
 		modelo.addAttribute("autores", autores);
 		
-		return "formAgregarAutor";
+		return "/autor/formAgregarAutor";
 	}
 	
 	@PostMapping("/agregarAutor") 
@@ -70,7 +70,7 @@ public class AutorControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 			
-			return "formAgregarAutor";
+			return "/autor/formAgregarAutor";
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class AutorControlador {
 
 		modelo.addAttribute("nombre", autores.get().getNombre());
 				
-		return "formModificarAutor";
+		return "/autor/formModificarAutor";
 	}
 	
 	@PostMapping("/modificarAutor") 
@@ -97,7 +97,7 @@ public class AutorControlador {
 			// devolvemos los valores ingresados al formulario
 			modelo.put("nombre", nombre);
 					
-			return "formModificarAutor";
+			return "/autor/formModificarAutor";
 		}
 	}
 	

@@ -29,7 +29,7 @@ public class ClienteControlador {
 		// modelo.addAttribute vamos a enviar toda la lista a la tabla
 		modelo.addAttribute("clientes", clientes);
 		
-		return "clientes";
+		return "/cliente/clientes";
 	}
 	
 	@PostMapping("/buscarCliente")
@@ -39,14 +39,14 @@ public class ClienteControlador {
 			List<Cliente> clientes =  servicioCliente.buscarClientePorNombre(nombre);
 			modelo.addAttribute("clientes", clientes);
 			
-			return "clientes";
+			return "/cliente/clientes";
 			
 		} catch (Exception e) {
 			modelo.put("ErrorBuscar", e.getMessage());
 			// devolvemos los valores ingresados al formulario
 		    modelo.put("nombre", nombre);
 			
-			return "clientes";
+			return "/cliente/clientes";
 		}		
 	}	
 	
@@ -55,7 +55,7 @@ public class ClienteControlador {
 		List<Cliente> clientes = servicioCliente.listarClientes();
 		modelo.addAttribute("clientes", clientes);
 		
-		return "formAgregarCliente";
+		return "/cliente/formAgregarCliente";
 	}
 	
 	@PostMapping("/agregarCliente") 
@@ -74,7 +74,7 @@ public class ClienteControlador {
 			modelo.put("telefono", telefono);
 			
 			
-			return "formAgregarCliente";
+			return "/cliente/formAgregarCliente";
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class ClienteControlador {
 		modelo.addAttribute("dni", clientes.get().getDni());
 		modelo.addAttribute("telefono",clientes.get().getTelefono());
 				
-		return "formModificarCliente";
+		return "/cliente/formModificarCliente";
 	}
 	
 	@PostMapping("/modificarCliente") 
@@ -106,7 +106,7 @@ public class ClienteControlador {
 			modelo.put("dni", dni);
 			modelo.put("telefono", telefono);
 					
-			return "formModificarCliente";
+			return "/cliente/formModificarCliente";
 		}
 	}
 	

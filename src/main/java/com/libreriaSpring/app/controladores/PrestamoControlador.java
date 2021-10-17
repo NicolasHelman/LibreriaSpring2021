@@ -43,7 +43,7 @@ public class PrestamoControlador {
 		// modelo.addAttribute vamos a enviar toda la lista a la tabla
 		modelo.addAttribute("prestamos", prestamos);
 		
-		return "prestamos";
+		return "/prestamo/prestamos";
 	}
 	
 	@PostMapping("/buscarPrestamo")
@@ -53,14 +53,14 @@ public class PrestamoControlador {
 			List<Prestamo> prestamos =  servicioPrestamo.buscarPrestamoPorNombre(nombre);
 			modelo.addAttribute("prestamos", prestamos);
 			
-			return "prestamos";
+			return "/prestamo/prestamos";
 			
 		} catch (Exception e) {
 			modelo.put("ErrorBuscar", e.getMessage());
 			// devolvemos los valores ingresados al formulario
 		    modelo.put("nombre", nombre);
 			
-			return "prestamos";
+			return "/prestamo/prestamos";
 		}		
 	}	
 	
@@ -74,7 +74,7 @@ public class PrestamoControlador {
 		Date fechaPrestamo = new Date();
 		modelo.addAttribute("fechaPrestamo",fechaPrestamo.toLocaleString());
 				
-		return "formAgregarPrestamo";
+		return "/prestamo/formAgregarPrestamo";
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -101,7 +101,7 @@ public class PrestamoControlador {
 			modelo.addAttribute("fechaPrestamo",fechaPrestamo.toLocaleString());
 			modelo.put("fechaDevolucion", fechaDevolucion);
 			
-			return "formAgregarPrestamo";
+			return "/prestamo/formAgregarPrestamo";
 		}		
 	}
 	
@@ -132,7 +132,7 @@ public class PrestamoControlador {
 		modelo.addAttribute("fechaPrestamo",prestamos.get().getFechaPrestamo());
 		modelo.addAttribute("fechaDevolucion",prestamos.get().getFechaDevolucion());
 
-		return "formModificarPrestamo";
+		return "/prestamo/formModificarPrestamo";
 	}
 	
 	@PostMapping("/modificarPrestamo") 
@@ -159,7 +159,7 @@ public class PrestamoControlador {
 			modelo.addAttribute("fechaPrestamo",fechaPrestamo);
 			modelo.addAttribute("fechaDevolucion",fechaDevolucion);
 					
-			return "formModificarPrestamo";
+			return "/prestamo/formModificarPrestamo";
 		}
 	}
 	
