@@ -2,8 +2,8 @@ body{
     margin: 50px 0px 0px 0px;
     background-image: url("/img/fondoTabla.jpg");    
     background-repeat: no-repeat;
-    height: 100vh;
     background-size: cover;
+    width: 100%;
 }
 
 section div img{
@@ -11,7 +11,7 @@ section div img{
 }
 
 #tabla{
-	margin-top: 150px;
+	margin: 150px 0px 100px 0px;
 	height: 100%;
 }
 
