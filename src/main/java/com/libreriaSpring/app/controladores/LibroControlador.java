@@ -72,12 +72,12 @@ public class LibroControlador {
 	}
 	
 	@PostMapping("/agregarLibro") 
-	public String guardarLibro(ModelMap modelo, @RequestParam Long isbn, @RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam String idAutor, @RequestParam String idEditorial) throws ErrorServicio{
+	public String guardarLibro(ModelMap modelo, @RequestParam(required = false) Long isbn, @RequestParam String titulo, @RequestParam(required = false) Integer anio, @RequestParam(required = false) Integer ejemplares, @RequestParam String idAutor, @RequestParam String idEditorial) throws ErrorServicio{
 		
 		try {
 			servicioLibro.crearLibro(isbn, titulo, anio, ejemplares, idAutor, idEditorial);
 			
-			return "redirect:/libro/libros";	
+			return "redirect:/libros";	
 			
 		} catch (ErrorServicio e) {
 			modelo.put("Error", e.getMessage());
@@ -115,12 +115,12 @@ public class LibroControlador {
 	}
 	
 	@PostMapping("/modificarLibro") 
-	public String editarLibro(ModelMap modelo, @RequestParam String id, @RequestParam Long isbn, @RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam String idAutor, @RequestParam String idEditorial) throws ErrorServicio{
+	public String editarLibro(ModelMap modelo, @RequestParam String id, @RequestParam(required = false) Long isbn, @RequestParam String titulo, @RequestParam(required = false) Integer anio, @RequestParam(required = false) Integer ejemplares, @RequestParam(required = false) Integer ejemplaresPrestados, @RequestParam String idAutor, @RequestParam String idEditorial) throws ErrorServicio{
 		
 		try {
 			servicioLibro.modificarLibro(id, isbn, titulo, anio, ejemplares, ejemplaresPrestados, idAutor, idEditorial);
 			
-			return "redirect:/libro/libros";	
+			return "redirect:/libros";
 			
 		} catch (ErrorServicio e) {
 			modelo.put("Error", e.getMessage());

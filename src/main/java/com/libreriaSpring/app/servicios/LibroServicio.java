@@ -62,7 +62,7 @@ public class LibroServicio {
 		@SuppressWarnings("deprecation")
 		Editorial e = dataEditorial.getOne(idEditorial);
 		
-		validarModificarLibro(isbn, titulo, anio, ejemplares, a, e);
+		validarModificarLibro(isbn, titulo, anio, ejemplares, ejemplaresPrestados, a, e);
 		
 		Optional<Libro> respuesta = dataLibro.findById(id);
 		
@@ -158,7 +158,7 @@ public class LibroServicio {
 	}
 	
 	public void validarCrearLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Autor autor, Editorial editorial, String nombreEditorial) throws ErrorServicio{
-		if (isbn.toString() == null) {
+		if (isbn == null) {
 			throw new ErrorServicio("*El isbn está incompleto");
 		}			
 		if (isbn.toString().length() < 10 || isbn.toString().length() > 13) {
@@ -170,19 +170,19 @@ public class LibroServicio {
 		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
 			throw new ErrorServicio("*El título está incompleto");
 		}
-		if (anio.toString() == null) {
+		if (anio == null) {
 			throw new ErrorServicio("*El año está incompleto");
 		}
 		if (anio < 1900 || anio > 2021) {
 			throw new ErrorServicio("*El año ingresado es invalido");
 		}
-		if (ejemplares.toString() == null || ejemplares <= 0) {
+		if (ejemplares == null || ejemplares <= 0) {
 			throw new ErrorServicio("*Los ejemplares están incompletos");
 		}
-		if(autor.toString() == null) {
+		if(autor == null) {
 			throw new ErrorServicio("*No se encontró el autor solicitado");
 		}	
-		if(editorial.toString() == null) {
+		if(editorial == null) {
 			throw new ErrorServicio("*No se encontró la editorial solicitada");
 		}	
 		if( dataLibro.validarTituloEditorial(titulo,nombreEditorial) != null ) {
@@ -190,8 +190,8 @@ public class LibroServicio {
 		}
 	}	
 	
-	public void validarModificarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Autor autor, Editorial editorial) throws ErrorServicio{
-		if (isbn.toString() == null) {
+	public void validarModificarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Autor autor, Editorial editorial) throws ErrorServicio{
+		if (isbn == null) {
 			throw new ErrorServicio("*El isbn está incompleto");
 		}			
 		if (isbn.toString().length() < 10 || isbn.toString().length() > 13) {
@@ -200,19 +200,22 @@ public class LibroServicio {
 		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
 			throw new ErrorServicio("*El título está incompleto");
 		}
-		if (anio.toString() == null) {
+		if (anio == null) {
 			throw new ErrorServicio("*El año está incompleto");
 		}
 		if (anio < 1900 || anio > 2021) {
 			throw new ErrorServicio("*El año ingresado es invalido");
 		}
-		if (ejemplares.toString() == null) {
+		if (ejemplares == null) {
 			throw new ErrorServicio("*Los ejemplares están incompletos");
 		}
-		if(autor.toString() == null) {
+		if (ejemplaresPrestados == null) {
+			throw new ErrorServicio("*Los ejemplares están incompletos");
+		}
+		if(autor == null) {
 			throw new ErrorServicio("*No se encontró el autor solicitado");
 		}	
-		if(editorial.toString() == null) {
+		if(editorial == null) {
 			throw new ErrorServicio("*No se encontró la editorial solicitada");
 		}	
 	}	

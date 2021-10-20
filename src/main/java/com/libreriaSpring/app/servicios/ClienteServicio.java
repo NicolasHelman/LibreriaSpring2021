@@ -133,7 +133,7 @@ public class ClienteServicio {
 		if (dataCliente.validarNombreCliente(nombre) != null) {
 			throw new ErrorServicio("*Ya existe un cliente con el mismo nombre");
 		}	
-		if (dni.toString() == null || dni.toString().isEmpty() || dni.toString().contains("  ")) {
+		if (dni == null) {
 			throw new ErrorServicio("*El dni del cliente está incompleto");
 		}
 		if (dni.toString().length() != 8) {

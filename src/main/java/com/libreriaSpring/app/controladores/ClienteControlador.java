@@ -59,7 +59,7 @@ public class ClienteControlador {
 	}
 	
 	@PostMapping("/agregarCliente") 
-	public String guardarCliente(ModelMap modelo, @RequestParam String nombre, @RequestParam Long dni, @RequestParam String telefono) throws ErrorServicio {
+	public String guardarCliente(ModelMap modelo, @RequestParam String nombre, @RequestParam(required = false) Long dni, @RequestParam String telefono) throws ErrorServicio {
 		
 		try {
 			servicioCliente.crearCliente(nombre, dni, telefono);
@@ -91,7 +91,7 @@ public class ClienteControlador {
 	}
 	
 	@PostMapping("/modificarCliente") 
-	public String editarCliente(ModelMap modelo, @RequestParam String id, @RequestParam String nombre, @RequestParam Long dni, @RequestParam String telefono) throws ErrorServicio{
+	public String editarCliente(ModelMap modelo, @RequestParam String id, @RequestParam String nombre, @RequestParam(required = false) Long dni, @RequestParam String telefono) throws ErrorServicio{
 		
 		try {
 			servicioCliente.modificarCliente(id, nombre, dni, telefono);
