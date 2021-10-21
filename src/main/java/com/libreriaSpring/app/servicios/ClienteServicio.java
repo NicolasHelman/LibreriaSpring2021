@@ -20,7 +20,7 @@ public class ClienteServicio {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void crearCliente(String nombre, Long dni, String telefono) throws ErrorServicio{
 		
-		validarCliente(nombre,dni,telefono);
+		validarCrearCliente(nombre,dni,telefono);
 		
 		Cliente c = new Cliente();
 		
@@ -36,7 +36,7 @@ public class ClienteServicio {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void modificarCliente(String id, String nombre, Long dni, String telefono) throws ErrorServicio {
 			
-		validarCliente(nombre,dni,telefono);
+		validarModificarCliente(nombre,dni,telefono);
 		
 		Optional<Cliente> clientes = dataCliente.findById(id);		
 		
@@ -126,7 +126,7 @@ public class ClienteServicio {
 		dataCliente.deleteById(id);
 	}
 	
-	public void validarCliente(String nombre, Long dni, String telefono) throws ErrorServicio{	
+	public void validarCrearCliente(String nombre, Long dni, String telefono) throws ErrorServicio{	
 		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
 			throw new ErrorServicio("*El nombre del cliente está incompleto");
 		}
@@ -150,6 +150,24 @@ public class ClienteServicio {
 		}
 		if (dataCliente.validarTelefonoCliente(telefono) != null) {
 			throw new ErrorServicio("*Ya existe un cliente con el mismo teléfono");
+		}
+	}
+	
+	public void validarModificarCliente(String nombre, Long dni, String telefono) throws ErrorServicio{	
+		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
+			throw new ErrorServicio("*El nombre del cliente está incompleto");
+		}
+		if (dni == null) {
+			throw new ErrorServicio("*El dni del cliente está incompleto");
+		}
+		if (dni.toString().length() != 8) {
+			throw new ErrorServicio("*El dni debe ser de 8 dígitos");
+		}
+		if (telefono == null || telefono.isEmpty() || telefono.contains("  ")) {
+			throw new ErrorServicio("*El telefono del cliente está incompleto");
+		}
+		if (telefono.length() != 10) {
+			throw new ErrorServicio("*El teléfono debe ser de 10 dígitos");
 		}
 	}
 	
