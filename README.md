@@ -1,2 +1,3 @@
 # LibreriaSpring2021
-Proyecto CRUD Librería Web con Spring
+Proyecto Web Librería con Roles Admin y Usuario 
+
